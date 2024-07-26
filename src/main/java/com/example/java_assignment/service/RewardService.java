@@ -1,3 +1,6 @@
+/**
+ * This is the interface used to call the implementation logic for the service class 
+ */
 package com.example.java_assignment.service;
 
 /**
@@ -12,5 +15,5 @@ public interface RewardService {
 	 * 
 	 */
 	public int calculateRewardPoints(Double amount);
-	
+
 }

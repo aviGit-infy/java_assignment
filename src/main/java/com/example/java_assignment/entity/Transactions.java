@@ -1,7 +1,9 @@
+/**
+ *  This class is the entity class which represent as the database class so that we can communicate them together
+ */
 package com.example.java_assignment.entity;
 
 import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

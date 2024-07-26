@@ -1,3 +1,7 @@
+/**
+ * This is the rewardServiceImplementation class which contains method logic to
+ * calculateRewardPoints,store reward points and validate the user inputs. 
+ */
 package com.example.java_assignment.service;
 
 import java.time.DateTimeException;
@@ -21,7 +25,10 @@ public class RewardServiceImplementation implements RewardService {
 
 	@Autowired
 	private TransactionRepository transactionsRepository;
-
+	
+	/**
+	 * This is the main logic which allows to calculate the reward points 
+	 */
 	@Override
 	public int calculateRewardPoints(Double transactionAmount) {
 		int points = 0;

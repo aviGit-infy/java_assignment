@@ -1,3 +1,7 @@
+/**
+ * This is the repository class which is extending the JPARepository and contains the method to find 
+ * the customer by Id
+ */
 package com.example.java_assignment.repository;
 
 import java.util.List;

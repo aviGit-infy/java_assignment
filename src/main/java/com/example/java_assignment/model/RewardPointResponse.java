@@ -1,3 +1,6 @@
+/**
+ * This class is used to handle the response which is coming in the getRequest
+ */
 package com.example.java_assignment.model;
 
 import java.util.Map;

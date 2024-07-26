@@ -1,9 +1,9 @@
+/**
+ * This is the controller class which contains methods to create and fetch the customer rewards 
+ */
 package com.example.java_assignment.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.java_assignment.entity.Transactions;
 import com.example.java_assignment.model.RewardPointResponse;
-import com.example.java_assignment.repository.TransactionRepository;
+import com.example.java_assignment.service.AsyncRewardPointService;
 import com.example.java_assignment.service.RewardServiceImplementation;
 
 /**
@@ -29,10 +29,10 @@ import com.example.java_assignment.service.RewardServiceImplementation;
 public class RewardPointController {
 
 	@Autowired
-	private TransactionRepository transactionRepository;
-
-	@Autowired
 	private RewardServiceImplementation rewardServiceImplementation;
+	
+	@Autowired
+	private AsyncRewardPointService asyncRewardPointService;
 
 	/**
 	 * The getRewardPoints returns RewardPointResponse from the database
@@ -47,17 +47,8 @@ public class RewardPointController {
 			if (custId <= 0) {
 				throw new IllegalArgumentException("Customer ID must be a positive number");
 			}
-			List<Transactions> transactions = transactionRepository.findByCustomerId(custId);
-			Map<String, Integer> monthlyPoints = new HashMap<>();
-			int totalPoints = 0;
-			for (Transactions transaction : transactions) {
-				String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase()
-						.substring(0, 3);
-				int points = rewardServiceImplementation.calculateRewardPoints(transaction.getAmount());
-				monthlyPoints.put(month, monthlyPoints.getOrDefault(month, 0) + points);
-				totalPoints += points;
-			}
-			RewardPointResponse response = new RewardPointResponse(monthlyPoints, totalPoints);
+			CompletableFuture<RewardPointResponse> future = asyncRewardPointService.getRewardPointsAsync(custId);
+			RewardPointResponse response = future.get(); // Wait for the asynchronous task to complete
 			return ResponseEntity.ok(response);
 		} catch (NumberFormatException e) {
 			return ResponseEntity.badRequest().body("Invalid customer ID format");
