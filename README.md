@@ -42,6 +42,8 @@ insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-
 insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-01',150);
 insert into transactions(customer_id,transaction_date,amount) values(4,'2020-04-01',200);
 
+1.1 H2 console which I have used for database 
+url -> http://localhost:8080/h2-console/
 
 2. Get Request ->
 url -> http://localhost:8080/api/reward-points/1
