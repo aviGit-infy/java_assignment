@@ -57,7 +57,8 @@ response ->
 }
 
 
-3. Put request ->
+3. Post request ->
+Note -> for the post request I used an application like postman to enter the request input and send the details 
 url -> http://localhost:8080/api/reward-points/createTransactions
 
 raw json request ->
