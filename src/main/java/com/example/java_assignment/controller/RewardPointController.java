@@ -47,7 +47,8 @@ public class RewardPointController {
 			Map<String, Integer> monthlyPoints = new HashMap<>();
 			int totalPoints = 0;
 			for (Transactions transaction : transactions) {
-				String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase().substring(0,3);
+				String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase()
+						.substring(0, 3);
 				int points = rewardServiceImplementation.calculateRewardPoints(transaction.getAmount());
 				monthlyPoints.put(month, monthlyPoints.getOrDefault(month, 0) + points);
 				totalPoints += points;
@@ -58,9 +59,10 @@ public class RewardPointController {
 			return ResponseEntity.badRequest().body("Invalid Input please verify the customer Id");
 		}
 	}
-	
+
 	/**
-	 * The createTransaction helps to create new reward point transactions for customer
+	 * The createTransaction helps to create new reward point transactions for
+	 * customer
 	 * 
 	 * @param transaction
 	 * @return

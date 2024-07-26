@@ -19,7 +19,7 @@ public class RewardServiceImplementation implements RewardService {
 
 	@Autowired
 	private TransactionRepository transactionsRepository;
-	
+
 	@Override
 	public int calculateRewardPoints(Double transactionAmount) {
 		int points = 0;
@@ -38,9 +38,10 @@ public class RewardServiceImplementation implements RewardService {
 
 		return points;
 	}
-	
+
 	/**
-	 * Process to create a new customer records 
+	 * Process to create a new customer records
+	 * 
 	 * @param customerId
 	 * @param amount
 	 * @param transactionDate
