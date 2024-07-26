@@ -58,7 +58,7 @@ response ->
 
 
 3. Put request ->
-url -> http://localhost:8080/api/reward-points/customerRecords
+url -> http://localhost:8080/api/reward-points/createTransactions
 
 raw json request ->
 {
@@ -69,3 +69,60 @@ raw json request ->
 
 response ->
 Transaction created successfully
+
+4. Validations/test scenarios
+4.1.1 In get Request
+4.1.2 If we pass input which is customer ID lesser than 1
+
+url -> http://localhost:8080/api/reward-points/-1
+
+response ->
+Customer ID must be a positive number
+
+4.1.3 If we pass input as string 
+
+url -> http://localhost:8080/api/reward-points/as
+
+response ->
+Invalid customer ID format
+
+4.2.1 In Post Request 
+4.2.2  If we pass customer Id as negative value
+url - http://localhost:8080/api/reward-points/createTransactions
+
+request ->
+{
+  "customerId": -1,
+  "amount": 100,
+  "transactionDate": "2001-02-20"
+}
+
+response ->
+Customer ID cannot be a negative value
+
+4.2.3 If we pass amount lesser than zero
+url -> http://localhost:8080/api/reward-points/createTransactions
+
+request ->
+{
+  "customerId": 1,
+  "amount": -1,
+  "transactionDate": "08-22-2001"
+}
+
+response ->
+Amount cannot be less than zero
+
+4.2.4 If we pass invalid format date
+url -> http://localhost:8080/api/reward-points/createTransactions
+Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])
+
+request ->
+{
+  "customerId": 1,
+  "amount": 20,
+  "transactionDate": "08-22-2001"
+}
+
+response ->
+Transaction date must be in the format yyyy-MM-dd

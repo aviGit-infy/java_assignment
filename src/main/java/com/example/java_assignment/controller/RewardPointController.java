@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +44,9 @@ public class RewardPointController {
 	public ResponseEntity<Object> getRewardPoints(@PathVariable String customerId) {
 		try {
 			Long custId = Long.parseLong(customerId);
+			if (custId <= 0) {
+				throw new IllegalArgumentException("Customer ID must be a positive number");
+			}
 			List<Transactions> transactions = transactionRepository.findByCustomerId(custId);
 			Map<String, Integer> monthlyPoints = new HashMap<>();
 			int totalPoints = 0;
@@ -55,8 +59,13 @@ public class RewardPointController {
 			}
 			RewardPointResponse response = new RewardPointResponse(monthlyPoints, totalPoints);
 			return ResponseEntity.ok(response);
+		} catch (NumberFormatException e) {
+			return ResponseEntity.badRequest().body("Invalid customer ID format");
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body("Invalid Input please verify the customer Id");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while processing the request");
 		}
 	}
 
@@ -73,8 +82,11 @@ public class RewardPointController {
 			rewardServiceImplementation.calculateAndStoreRewardPoints(transaction.getCustomerId(),
 					transaction.getAmount(), transaction.getTransactionDate());
 			return ResponseEntity.ok("Transaction created successfully");
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
 		} catch (Exception e) {
-			return ResponseEntity.badRequest().body("Please check the inputs");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while processing the request");
 		}
 
 	}
