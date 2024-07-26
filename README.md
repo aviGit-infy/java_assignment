@@ -33,7 +33,17 @@ Finally, we return the total points.
 
 Below is the Examples ->
 
-1. Get Request ->
+1. Sample input data records ->
+insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-01',120);
+insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-15',80);
+insert into transactions(customer_id,transaction_date,amount) values(1,'2020-02-15',100);
+insert into transactions(customer_id,transaction_date,amount) values(2,'2020-02-01',150);
+insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-01',200);
+insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-01',150);
+insert into transactions(customer_id,transaction_date,amount) values(4,'2020-04-01',200);
+
+
+2. Get Request ->
 url -> http://localhost:8080/api/reward-points/1
 
 response ->
@@ -47,7 +57,7 @@ response ->
 }
 
 
-2. Put request ->
+3. Put request ->
 url -> http://localhost:8080/api/reward-points/customerRecords
 
 raw json request ->
