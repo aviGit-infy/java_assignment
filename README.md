@@ -123,7 +123,7 @@ response ->
 Amount cannot be less than zero
 
 4.2.4 If we pass invalid format date
-url -> http://localhost:8080/api/reward-points/createTransactions
+url -> http://localhost:8080/api/reward-points/createTransactions <br/>
 Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])
 
 request ->
