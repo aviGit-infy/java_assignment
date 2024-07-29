@@ -35,6 +35,7 @@ Finally, we return the total points.
 ## Below is the Examples
 
 ## Sample input data records 
+```
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-01',120);
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-15',80);
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-02-15',100);
@@ -42,6 +43,7 @@ insert into transactions(customer_id,transaction_date,amount) values(2,'2020-02-
 insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-01',200);
 insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-01',150);
 insert into transactions(customer_id,transaction_date,amount) values(4,'2020-04-01',200);
+```
 
 1.1 H2 console which I have used for database 
 url -> http://localhost:8080/h2-console/
