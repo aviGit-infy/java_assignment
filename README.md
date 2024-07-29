@@ -1,3 +1,4 @@
+## Detail Description
 1. In the below repository 
 1.1 Main class name to run the application was give as JavaAssignmentApplication 
 
@@ -31,9 +32,9 @@ Finally, we return the total points.
 
 8. For handling the response for get request we have created a model class RewardPointResponse which used to display the map of string and integer for the monthly points and the total point for that particular customer
 
-Below is the Examples ->
+## Below is the Examples
 
-1. Sample input data records ->
+## Sample input data records 
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-01',120);
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-01-15',80);
 insert into transactions(customer_id,transaction_date,amount) values(1,'2020-02-15',100);
@@ -45,11 +46,11 @@ insert into transactions(customer_id,transaction_date,amount) values(4,'2020-04-
 1.1 H2 console which I have used for database 
 url -> http://localhost:8080/h2-console/
 
-2. Get Request ->
+## Get Request 
 url -> http://localhost:8080/api/reward-points/1
 
 response ->
-
+```
 {
     "monthlyPoints": {
         "feb": 50,
@@ -57,23 +58,24 @@ response ->
     },
     "totalPoints": 170
 }
+```
 
-
-3. Post request ->
+## Post request 
 Note -> for the post request I used an application like postman to enter the request input and send the details 
 url -> http://localhost:8080/api/reward-points/createTransactions
 
 raw json request ->
+```
 {
   "customerId": 1,
   "amount": 100.0,
   "transactionDate": "2022-01-01"
 }
-
+```
 response ->
 Transaction created successfully
 
-4. Validations/test scenarios
+## Validations/test scenarios
 4.1.1 In get Request
 4.1.2 If we pass input which is customer ID lesser than 1
 
@@ -94,12 +96,13 @@ Invalid customer ID format
 url - http://localhost:8080/api/reward-points/createTransactions
 
 request ->
+```
 {
   "customerId": -1,
   "amount": 100,
   "transactionDate": "2001-02-20"
 }
-
+```
 response ->
 Customer ID cannot be a negative value
 
@@ -107,12 +110,13 @@ Customer ID cannot be a negative value
 url -> http://localhost:8080/api/reward-points/createTransactions
 
 request ->
+```
 {
   "customerId": 1,
   "amount": -1,
   "transactionDate": "08-22-2001"
 }
-
+```
 response ->
 Amount cannot be less than zero
 
@@ -121,11 +125,13 @@ url -> http://localhost:8080/api/reward-points/createTransactions
 Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])
 
 request ->
+```
 {
   "customerId": 1,
   "amount": 20,
   "transactionDate": "08-22-2001"
 }
+```
 
 response ->
 Transaction date must be in the format yyyy-MM-dd
