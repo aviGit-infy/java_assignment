@@ -63,7 +63,7 @@ response ->
 ```
 
 ## Post request 
-Note -> for the post request I used an application like postman to enter the request input and send the details 
+<i> Note -> for the post request I used an application like postman to enter the request input and send the details </i><br>
 url -> http://localhost:8080/api/reward-points/createTransactions
 
 raw json request ->
@@ -79,7 +79,8 @@ response
 Transaction created successfully
 ```
 ## Validations/test scenarios
-2.1.1 In get Request, If we pass input which is customer ID lesser than 1
+<h4> Get Request Validations </h4>
+2.1.1 If we pass input which is customer ID lesser than 1
 
 url -> http://localhost:8080/api/reward-points/-1
 
@@ -95,8 +96,9 @@ response
 ```
 Invalid customer ID format
 ```
-2.2.1 In Post Request, If we pass customer Id as negative value
-url - http://localhost:8080/api/reward-points/createTransactions
+<h4>  Post Request Validations </h4>
+2.2.1 If we pass customer Id as negative value
+url - <a href="http://localhost:8080/api/reward-points/createTransactions">http://localhost:8080/api/reward-points/createTransactions</a>
 
 request ->
 ```
@@ -128,7 +130,7 @@ Amount cannot be less than zero
 ```
 2.2.3 If we pass invalid format date
 url -> http://localhost:8080/api/reward-points/createTransactions <br/>
-Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])
+<i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i>
 
 request ->
 ```
