@@ -31,7 +31,7 @@ Finally, we return the total points. <br>
 
 8. For handling the response for get request we have created a model class RewardPointResponse which used to display the map of string and integer for the monthly points and the total point for that particular customer
 
-9. The API's used <br>
+9. The API's that are Implemented <br>
 9.1 getAllCustomerTransactions -> this GET API will return all the customerId along with the rewardPoint earned in monthly basis <br>
 9.2 getRewardPoints -> this GET API takes customerId as a input parameter and fetch the records for that particular customer <br>
 9.3 createTransaction -> this POST API will take customerId, transactionDate and Amount and will return the response as records/ transaction successfully inserted.
@@ -88,8 +88,7 @@ response ->
     }
 ]
 ```
-<br>
-<b> Get Using Single customerID </b>
+<b> Get Using Single customerID </b><br>
 url -> http://localhost:8080/api/reward-points/1 <br>
 response ->
 ```
@@ -105,7 +104,7 @@ response ->
 
 ## Post request 
 <i> Note -> for the post request I used an application like postman to enter the request input and send the details </i><br>
-url -> http://localhost:8080/api/reward-points/createTransactions
+url -> http://localhost:8080/api/reward-points/createTransactions <br>
 raw json request ->
 ```
 {
@@ -120,59 +119,59 @@ Transaction created successfully
 ```
 ## Validations/test scenarios
 - <b> Get Request Validations </b> <br>
-2.1.1 If we pass input which is customer ID lesser than 1 <br>
-request url -> http://localhost:8080/api/reward-points/-1 <br>
-response
-```
-Customer ID must be a positive number
-```
-2.1.2 If we pass input as string <br>
-request url -> http://localhost:8080/api/reward-points/as <br>
-response 
-```
-Invalid customer ID format
-```
+  2.1.1 If we pass input which is customer ID lesser than 1 <br>
+  request url -> http://localhost:8080/api/reward-points/-1 <br>
+  response
+  ```
+  Customer ID must be a positive number
+  ```
+  2.1.2 If we pass input as string <br>
+  request url -> http://localhost:8080/api/reward-points/as <br>
+  response 
+  ```
+  Invalid customer ID format
+  ```
 - <b>  Post Request Validations </b> <br>
-2.2.1 If we pass customer Id as negative value <br>
-request url - <a href="http://localhost:8080/api/reward-points/createTransactions">http://localhost:8080/api/reward-points/createTransactions</a> <br>
-request ->
-```
-{
-  "customerId": -1,
-  "amount": 100,
-  "transactionDate": "2001-02-20"
-}
-```
-response 
-```
-Customer ID cannot be a negative value
-```
-2.2.2 If we pass amount lesser than zero <br>
-request url -> http://localhost:8080/api/reward-points/createTransactions <br>
-request ->
-```
-{
-  "customerId": 1,
-  "amount": -1,
-  "transactionDate": "08-22-2001"
-}
-```
-response 
-```
-Amount cannot be less than zero
-```
-2.2.3 If we pass invalid format date <br>
-url -> http://localhost:8080/api/reward-points/createTransactions <br/>
-<i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i><br>
-request ->
-```
-{
-  "customerId": 1,
-  "amount": 20,
-  "transactionDate": "08-22-2001"
-}
-```
-response 
-```
-Transaction date must be in the format yyyy-MM-dd
-```
+    2.2.1 If we pass customer Id as negative value <br>
+    request url - <a href="http://localhost:8080/api/reward-points/createTransactions">http://localhost:8080/api/reward-points/createTransactions</a> <br>
+    request ->
+    ```
+    {
+      "customerId": -1,
+      "amount": 100,
+      "transactionDate": "2001-02-20"
+    }
+    ```
+    response 
+    ```
+    Customer ID cannot be a negative value
+    ```
+    2.2.2 If we pass amount lesser than zero <br>
+    request url -> http://localhost:8080/api/reward-points/createTransactions <br>
+    request ->
+    ```
+    {
+      "customerId": 1,
+      "amount": -1,
+      "transactionDate": "08-22-2001"
+    }
+    ```
+    response 
+    ```
+    Amount cannot be less than zero
+    ```
+    2.2.3 If we pass invalid format date <br>
+    url -> http://localhost:8080/api/reward-points/createTransactions <br/>
+    <i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i><br>
+    request ->
+    ```
+    {
+      "customerId": 1,
+      "amount": 20,
+      "transactionDate": "08-22-2001"
+    }
+    ```
+    response 
+    ```
+    Transaction date must be in the format yyyy-MM-dd
+    ```
