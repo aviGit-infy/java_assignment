@@ -31,6 +31,12 @@ Finally, we return the total points. <br>
 
 8. For handling the response for get request we have created a model class RewardPointResponse which used to display the map of string and integer for the monthly points and the total point for that particular customer
 
+9. The API's used <br>
+9.1 getAllCustomerTransactions -> this GET API will return all the customerId along with the rewardPoint earned in monthly basis <br>
+9.2 getRewardPoints -> this GET API takes customerId as a input parameter and fetch the records for that particular customer <br>
+9.3 createTransaction -> this POST API will take customerId, transactionDate and Amount and will return the response as records/ transaction successfully inserted.
+
+
 ## Below is the Examples
 ## Sample input data records 
 ```
@@ -43,9 +49,48 @@ insert into transactions(customer_id,transaction_date,amount) values(3,'2020-03-
 insert into transactions(customer_id,transaction_date,amount) values(4,'2020-04-01',200);
 ```
 1.1 H2 console which I have used for database 
-url -> http://localhost:8080/h2-console/
+url -> http://localhost:8080/h2-console/ <br>
+
 ## Get Request 
-url -> http://localhost:8080/api/reward-points/1
+<b> Get all Records </b>
+url -> http://localhost:8080/api/reward-points/getAllCustomer <br>
+response ->
+```
+[
+    {
+        "customerId": 1,
+        "monthlyPoints": {
+            "feb": 50,
+            "jan": 70
+        },
+        "totalPoints": 120
+    },
+    {
+        "customerId": 2,
+        "monthlyPoints": {
+            "feb": 100
+        },
+        "totalPoints": 100
+    },
+    {
+        "customerId": 3,
+        "monthlyPoints": {
+            "mar": 300
+        },
+        "totalPoints": 300
+    },
+    {
+        "customerId": 4,
+        "monthlyPoints": {
+            "apr": 200
+        },
+        "totalPoints": 200
+    }
+]
+```
+<br>
+<b> Get Using Single customerID </b>
+url -> http://localhost:8080/api/reward-points/1 <br>
 response ->
 ```
 {
@@ -56,6 +101,8 @@ response ->
     "totalPoints": 120
 }
 ```
+
+
 ## Post request 
 <i> Note -> for the post request I used an application like postman to enter the request input and send the details </i><br>
 url -> http://localhost:8080/api/reward-points/createTransactions

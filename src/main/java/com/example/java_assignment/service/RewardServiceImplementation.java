@@ -40,7 +40,7 @@ public class RewardServiceImplementation implements RewardService {
 		}
 
 		// Calculate points for amount spent between $50 and $100
-		if (transactionAmount > 50 && transactionAmount <=100 ) {
+		if (transactionAmount >= 50 && transactionAmount <=100 ) {
 			double amountBetween50And100 = Math.min(transactionAmount, 100) - 50;
 			points += amountBetween50And100; // 1 point for every dollar between $50 and $100
 		}

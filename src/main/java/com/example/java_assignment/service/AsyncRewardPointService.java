@@ -9,10 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import com.example.java_assignment.entity.Transactions;
+import com.example.java_assignment.model.RewardPointForAllCustomer;
 import com.example.java_assignment.model.RewardPointResponse;
 import com.example.java_assignment.repository.TransactionRepository;
 
@@ -56,4 +58,30 @@ public class AsyncRewardPointService {
 		return CompletableFuture.completedFuture(response);
 	}
 
+	
+	/**
+	 * The below method will return all the customerId and will calculate and provide the CompletableFuture
+	 * object, which represents the result of the asynchronous operation
+	 * @return
+	 */
+	@Async
+	public CompletableFuture<List<RewardPointForAllCustomer>> getRecordsForAllCustomers() {
+		List<Transactions> transactions = transactionsRepository.findAll();
+		Map<Long, Map<String, Integer>> customerPoints = new HashMap<>();
+		for (Transactions transaction : transactions) {
+			Long customerId = transaction.getCustomerId();
+			String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase()
+					.substring(0, 3);
+			int points = rewardServiceImplementation.calculateRewardPoints(transaction.getAmount());
+			customerPoints.putIfAbsent(customerId, new HashMap<>());
+			customerPoints.get(customerId).put(month, customerPoints.get(customerId).getOrDefault(month, 0) + points);
+		}
+
+		List<RewardPointForAllCustomer> responses = customerPoints.entrySet().stream()
+				.map(entry -> new RewardPointForAllCustomer(entry.getKey(), entry.getValue(),
+						entry.getValue().values().stream().mapToInt(Integer::intValue).sum()))
+				.collect(Collectors.toList());
+
+		return CompletableFuture.completedFuture(responses);
+	}
 }

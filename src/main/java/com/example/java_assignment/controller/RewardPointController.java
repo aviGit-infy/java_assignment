@@ -3,6 +3,7 @@
  */
 package com.example.java_assignment.controller;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.java_assignment.entity.Transactions;
+import com.example.java_assignment.model.RewardPointForAllCustomer;
 import com.example.java_assignment.model.RewardPointResponse;
 import com.example.java_assignment.service.AsyncRewardPointService;
 import com.example.java_assignment.service.RewardServiceImplementation;
@@ -34,6 +36,24 @@ public class RewardPointController {
 	@Autowired
 	private AsyncRewardPointService asyncRewardPointService;
 
+	/**
+	 * The below method will return the reward points calculated for all the
+	 * customers
+	 * 
+	 * @return
+	 */
+	@GetMapping("/allCustomer")
+	public ResponseEntity<Object> getAllCustomerTransactions() {
+		try {
+			CompletableFuture<List<RewardPointForAllCustomer>> future = asyncRewardPointService.getRecordsForAllCustomers();
+			List<RewardPointForAllCustomer> response = future.get(); // Wait for the asynchronous task to complete
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while processing the request");
+		}
+	}
+	
 	/**
 	 * The getRewardPoints returns RewardPointResponse from the database
 	 * 

@@ -1,31 +1,45 @@
 /**
- * This class is used to handle the response which is coming in the getRequest
+ * This class is created to fetch all the response and display they with respect to customerIds
  */
 package com.example.java_assignment.model;
 
 import java.util.Map;
 
 /**
- * The RewardPointResponse class
+ * The RewardPointForAllCustomer class
  * 
  * @author avinash.menon
  *
  */
-public class RewardPointResponse {
+public class RewardPointForAllCustomer {
 
-	/** The monthlyPoints*/
+	private Long customerId;
 	private Map<String, Integer> monthlyPoints;
-	
-	/** The totalPoints */
 	private int totalPoints;
 
 	/**
+	 * @param customerId
 	 * @param monthlyPoints
 	 * @param totalPoints
 	 */
-	public RewardPointResponse(Map<String, Integer> monthlyPoints, int totalPoints) {
+	public RewardPointForAllCustomer(Long customerId, Map<String, Integer> monthlyPoints, int totalPoints) {
+		this.customerId = customerId;
 		this.monthlyPoints = monthlyPoints;
 		this.totalPoints = totalPoints;
+	}
+
+	/**
+	 * @return the customerId
+	 */
+	public Long getCustomerId() {
+		return customerId;
+	}
+
+	/**
+	 * @param customerId the customerId to set
+	 */
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	/**
