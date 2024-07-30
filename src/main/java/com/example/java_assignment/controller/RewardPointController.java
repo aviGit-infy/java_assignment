@@ -42,7 +42,7 @@ public class RewardPointController {
 	 * 
 	 * @return
 	 */
-	@GetMapping("/allCustomer")
+	@GetMapping("/getAllCustomer")
 	public ResponseEntity<Object> getAllCustomerTransactions() {
 		try {
 			CompletableFuture<List<RewardPointForAllCustomer>> future = asyncRewardPointService.getRecordsForAllCustomers();
