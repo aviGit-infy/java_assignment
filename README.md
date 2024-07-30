@@ -16,7 +16,7 @@
 6.1 The logic is written in method -> calculateRewardPoints(Double transactionAmount)
 6.2 First, we check if the transaction amount is over $100. If it is, we calculate the amount spent over $100 by subtracting 100 from the transaction amount.
 6.3 We then multiply this amount by 2 to get the points for the amount spent over $100.
-6.4 Next, we check if the transaction amount is over $50. If it is, we calculate the amount spent between $50 and $100 by subtracting 50 from the minimum of the transaction amount and 100 (to ensure we don't go over $100).
+6.4 Next, we check if the transaction amount is between $50 and $100. If it is, we calculate the amount spent between $50 and $100 by subtracting 50 from the minimum of the transaction amount and 100 (to ensure we don't go over $100).
 6.5 We then add this amount to the points to get the total points for the transaction.
 Finally, we return the total points.
 6.6 After returning we are using this method in two places one is while creating the records and one is for fetching the records
@@ -51,9 +51,9 @@ response ->
 {
     "monthlyPoints": {
         "feb": 50,
-        "jan": 120
+        "jan": 70
     },
-    "totalPoints": 170
+    "totalPoints": 120
 }
 
 
