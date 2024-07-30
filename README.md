@@ -72,22 +72,22 @@ response
 Transaction created successfully
 ```
 ## Validations/test scenarios
-<h4> Get Request Validations </h4>
-2.1.1 If we pass input which is customer ID lesser than 1
-url -> http://localhost:8080/api/reward-points/-1
-response 
+- <b> Get Request Validations </b> <br>
+2.1.1 If we pass input which is customer ID lesser than 1 <br>
+request url -> http://localhost:8080/api/reward-points/-1 <br>
+response
 ```
 Customer ID must be a positive number
 ```
-2.1.2 If we pass input as string 
-url -> http://localhost:8080/api/reward-points/as
+2.1.2 If we pass input as string <br>
+request url -> http://localhost:8080/api/reward-points/as <br>
 response 
 ```
 Invalid customer ID format
 ```
-<h4>  Post Request Validations </h4>
-2.2.1 If we pass customer Id as negative value
-url - <a href="http://localhost:8080/api/reward-points/createTransactions">http://localhost:8080/api/reward-points/createTransactions</a>
+- <b>  Post Request Validations </b> <br>
+2.2.1 If we pass customer Id as negative value <br>
+request url - <a href="http://localhost:8080/api/reward-points/createTransactions">http://localhost:8080/api/reward-points/createTransactions</a> <br>
 request ->
 ```
 {
@@ -100,8 +100,8 @@ response
 ```
 Customer ID cannot be a negative value
 ```
-2.2.2 If we pass amount lesser than zero
-url -> http://localhost:8080/api/reward-points/createTransactions
+2.2.2 If we pass amount lesser than zero <br>
+request url -> http://localhost:8080/api/reward-points/createTransactions <br>
 request ->
 ```
 {
@@ -114,9 +114,9 @@ response
 ```
 Amount cannot be less than zero
 ```
-2.2.3 If we pass invalid format date
+2.2.3 If we pass invalid format date <br>
 url -> http://localhost:8080/api/reward-points/createTransactions <br/>
-<i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i>
+<i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i><br>
 request ->
 ```
 {
