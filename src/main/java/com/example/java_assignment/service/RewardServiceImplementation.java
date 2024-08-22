@@ -6,9 +6,7 @@ package com.example.java_assignment.service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.java_assignment.entity.Transactions;
@@ -41,6 +39,7 @@ public class RewardServiceImplementation implements RewardService {
 
 		// Calculate points for amount spent between $50 and $100
 		if (transactionAmount >= 50 && transactionAmount <=100 ) {
+		//if (transactionAmount > 50) {
 			double amountBetween50And100 = Math.min(transactionAmount, 100) - 50;
 			points += amountBetween50And100; // 1 point for every dollar between $50 and $100
 		}
@@ -55,12 +54,11 @@ public class RewardServiceImplementation implements RewardService {
 	 * @param amount
 	 * @param transactionDate
 	 */
-	public void calculateAndStoreRewardPoints(Long customerId, Double amount, Date transactionDate) {
+	public void calculateAndStoreRewardPoints(Long customerId, Double amount, LocalDate transactionDate) {
 		validateTransaction(customerId, amount, transactionDate);
-		int points = calculateRewardPoints(amount);
 		Transactions customerRewardPoints = new Transactions();
 		customerRewardPoints.setCustomerId(customerId);
-		customerRewardPoints.setAmount(points);
+		customerRewardPoints.setAmount(amount);
 		customerRewardPoints.setTransactionDate(transactionDate);
 		transactionsRepository.save(customerRewardPoints);
 	}
@@ -72,7 +70,7 @@ public class RewardServiceImplementation implements RewardService {
 	 * @param amount
 	 * @param transactionDate
 	 */
-	private void validateTransaction(Long customerId, Double amount, Date transactionDate) {
+	private void validateTransaction(Long customerId, Double amount, LocalDate transactionDate) {
 		if (customerId == null) {
 			throw new IllegalArgumentException("Customer ID cannot be null");
 		}
@@ -87,10 +85,10 @@ public class RewardServiceImplementation implements RewardService {
 		}
 
 		try {
-			LocalDate localDate = transactionDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			String formattedDate = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-			if (!formattedDate.equals(localDate.getYear() + "-" + String.format("%02d", localDate.getMonthValue()) + "-"
-					+ String.format("%02d", localDate.getDayOfMonth()))) {
+			String formattedDate = transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			if (!formattedDate
+					.equals(transactionDate.getYear() + "-" + String.format("%02d", transactionDate.getMonthValue())
+							+ "-" + String.format("%02d", transactionDate.getDayOfMonth()))) {
 				throw new IllegalArgumentException("Transaction date must be in the format yyyy-MM-dd");
 			}
 		} catch (DateTimeException e) {

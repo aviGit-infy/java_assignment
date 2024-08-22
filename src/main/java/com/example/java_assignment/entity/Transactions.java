@@ -3,7 +3,7 @@
  */
 package com.example.java_assignment.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ public class Transactions {
 
 	@NotNull
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private Date transactionDate;
+	private LocalDate transactionDate;
 
 	@NotNull
 	private double amount;
@@ -68,14 +68,14 @@ public class Transactions {
 	/**
 	 * @return the transactionDate
 	 */
-	public Date getTransactionDate() {
+	public LocalDate getTransactionDate() {
 		return transactionDate;
 	}
 
 	/**
 	 * @param transactionDate the transactionDate to set
 	 */
-	public void setTransactionDate(Date transactionDate) {
+	public void setTransactionDate(LocalDate transactionDate) {
 		this.transactionDate = transactionDate;
 	}
 

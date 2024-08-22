@@ -61,7 +61,7 @@ public class RewardPointController {
 	 * @return
 	 */
 	@GetMapping("/{customerId}")
-	public ResponseEntity<Object> getRewardPoints(@PathVariable String customerId) {
+	public ResponseEntity<Object> getRewardPointsBasedOnCustomerId(@PathVariable String customerId) {
 		try {
 			Long custId = Long.parseLong(customerId);
 			if (custId <= 0) {

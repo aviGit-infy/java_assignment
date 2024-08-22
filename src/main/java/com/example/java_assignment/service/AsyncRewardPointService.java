@@ -4,9 +4,10 @@
  */
 package com.example.java_assignment.service;
 
-import java.text.SimpleDateFormat;
+import java.time.format.TextStyle;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -48,8 +49,8 @@ public class AsyncRewardPointService {
 		Map<String, Integer> monthlyPoints = new HashMap<>();
 		int totalPoints = 0;
 		for (Transactions transaction : transactionsList) {
-			String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase()
-					.substring(0, 3);
+			String month = transaction.getTransactionDate().getMonth().getDisplayName(TextStyle.SHORT,
+					Locale.getDefault());
 			int points = rewardServiceImplementation.calculateRewardPoints(transaction.getAmount());
 			monthlyPoints.put(month, monthlyPoints.getOrDefault(month, 0) + points);
 			totalPoints += points;
@@ -57,7 +58,6 @@ public class AsyncRewardPointService {
 		RewardPointResponse rewardPointResponse = new RewardPointResponse(monthlyPoints, totalPoints);
 		return CompletableFuture.completedFuture(rewardPointResponse);
 	}
-
 	
 	/**
 	 * The below method will return all the customerId and will calculate and provide the CompletableFuture
@@ -70,10 +70,11 @@ public class AsyncRewardPointService {
 		Map<Long, Map<String, Integer>> customerPoints = new HashMap<>();
 		for (Transactions transaction : transactionsList) {
 			Long customerId = transaction.getCustomerId();
-			String month = new SimpleDateFormat("MMMM").format(transaction.getTransactionDate()).toLowerCase()
-					.substring(0, 3);
+			String month = transaction.getTransactionDate().getMonth().getDisplayName(TextStyle.SHORT,
+					Locale.getDefault());
 			int points = rewardServiceImplementation.calculateRewardPoints(transaction.getAmount());
 			customerPoints.putIfAbsent(customerId, new HashMap<>());
+			// this will map the customer with its ID monthly reward points earned.
 			customerPoints.get(customerId).put(month, customerPoints.get(customerId).getOrDefault(month, 0) + points);
 		}
 

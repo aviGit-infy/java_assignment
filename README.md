@@ -36,6 +36,10 @@ Finally, we return the total points. <br>
 9.2 getRewardPoints -> this GET API takes customerId as a input parameter and fetch the records for that particular customer <br>
 9.3 createTransaction -> this POST API will take customerId, transactionDate and Amount and will return the response as records/ transaction successfully inserted.
 
+10. TestCases 
+10.1 CreateRewardPointForCustomerTest -> This class is used to create a test whether the records are created and runs successfully
+10.2 RewardPointForAllCustomerTest -> This class used to get the reward points for all the customer and check if the records are the expected output or not  
+10.3 RewardPointForSingleCustomerTest -> This class is used to get the rewardPoint for single customer and also used to check the validations like negative field, invalid test in the url and gives the expected outcome or not.
 
 ## Below is the Examples
 ## Sample input data records 
@@ -60,29 +64,29 @@ response ->
     {
         "customerId": 1,
         "monthlyPoints": {
-            "feb": 50,
-            "jan": 70
+            "Feb": 50,
+            "Jan": 70
         },
         "totalPoints": 120
     },
     {
         "customerId": 2,
         "monthlyPoints": {
-            "feb": 100
+            "Feb": 100
         },
         "totalPoints": 100
     },
     {
         "customerId": 3,
         "monthlyPoints": {
-            "mar": 300
+            "Mar": 300
         },
         "totalPoints": 300
     },
     {
         "customerId": 4,
         "monthlyPoints": {
-            "apr": 200
+            "Apr": 200
         },
         "totalPoints": 200
     }
@@ -94,8 +98,8 @@ response ->
 ```
 {
     "monthlyPoints": {
-        "feb": 50,
-        "jan": 70
+        "Feb": 50,
+        "Jan": 70
     },
     "totalPoints": 120
 }
