@@ -36,9 +36,9 @@ Finally, we return the total points. <br>
 9.2 getRewardPoints -> this GET API takes customerId as a input parameter and fetch the records for that particular customer <br>
 9.3 createTransaction -> this POST API will take customerId, transactionDate and Amount and will return the response as records/ transaction successfully inserted.
 
-10. TestCases 
-10.1 CreateRewardPointForCustomerTest -> This class is used to create a test whether the records are created and runs successfully
-10.2 RewardPointForAllCustomerTest -> This class used to get the reward points for all the customer and check if the records are the expected output or not  
+10. TestCases <br>
+10.1 CreateRewardPointForCustomerTest -> This class is used to create a test whether the records are created and runs successfully <br>
+10.2 RewardPointForAllCustomerTest -> This class used to get the reward points for all the customer and check if the records are the expected output or not. <br> 
 10.3 RewardPointForSingleCustomerTest -> This class is used to get the rewardPoint for single customer and also used to check the validations like negative field, invalid test in the url and gives the expected outcome or not.
 
 ## Below is the Examples
