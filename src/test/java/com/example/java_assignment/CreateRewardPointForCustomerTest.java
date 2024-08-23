@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.java_assignment.controller.RewardPointController;
 import com.example.java_assignment.entity.Transactions;
@@ -19,8 +20,7 @@ import com.example.java_assignment.service.RewardServiceImplementation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -51,8 +51,9 @@ public class CreateRewardPointForCustomerTest {
 	}
 
 	/**
-	 * The testCreateTransaction_Success method is a JUnit test case designed 
-	 * to verify the successful creation of a transaction records
+	 * The testCreateTransaction_Success method is a JUnit test case designed to
+	 * verify the successful creation of a transaction records
+	 * 
 	 * @throws Exception
 	 */
 	@Test
@@ -64,11 +65,12 @@ public class CreateRewardPointForCustomerTest {
 		transaction.setTransactionDate(localDate);
 		transaction.setAmount(200.0);
 
-		mockMvc.perform(post("/api/reward-points/createTransactions").contentType(MediaType.APPLICATION_JSON)
-				.content(asJsonString(transaction))).andExpect(status().isOk());		  
-		
-		verify(rewardServiceImplementation, times(1)).calculateAndStoreRewardPoints(transaction.getCustomerId(),
-				transaction.getAmount(), transaction.getTransactionDate());
+		MvcResult result = mockMvc.perform(post("/api/reward-points/createTransactions")
+				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(transaction))).andExpect(status().isOk())
+				.andReturn();
+
+		String response = result.getResponse().getContentAsString();
+		assertEquals("Transaction created successfully", response);
 	}
 
 	/**
