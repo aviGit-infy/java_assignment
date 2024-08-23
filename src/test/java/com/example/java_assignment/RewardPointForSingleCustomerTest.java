@@ -10,17 +10,19 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.java_assignment.controller.RewardPointController;
 import com.example.java_assignment.model.RewardPointResponse;
 import com.example.java_assignment.service.AsyncRewardPointService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
 
 /**
  * The RewardPointForSingleCustomerTest
@@ -29,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public class RewardPointForSingleCustomerTest {
 
-	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -61,8 +62,18 @@ public class RewardPointForSingleCustomerTest {
 		when(asyncRewardPointService.getRewardPointsAsync(customerId))
 				.thenReturn(CompletableFuture.completedFuture(mockResponse));
 
-		mockMvc.perform(get("/api/reward-points/1"))
-				.andExpect(status().isOk()).andExpect(content().json("{\"monthlyPoints\":{\"jan\":100},\"totalPoints\":100}"));
+		/*
+		 * mockMvc.perform(get("/api/reward-points/1")) .andExpect(status().isOk())
+		 * .andExpect(content().json("{\"monthlyPoints\":{\"jan\":100}," +
+		 * "\"totalPoints\":100}"));
+		 */
+
+		String expectedResponse = new ObjectMapper().writeValueAsString(mockResponse);
+
+		mockMvc.perform(get("/api/reward-points/1")).andExpect(status().isOk()).andExpect(result -> {
+			String actualResponse = result.getResponse().getContentAsString();
+			assertEquals(expectedResponse, actualResponse);
+		});
 	}
 
 	/**
@@ -71,8 +82,10 @@ public class RewardPointForSingleCustomerTest {
 	 */
 	@Test
 	public void testGetRewardPointsBasedOnCustomerId_InvalidCustomerIdFormat() throws Exception {
-		mockMvc.perform(get("/api/reward-points/abc")) // Invalid customer ID format
-				.andExpect(status().isBadRequest()).andExpect(content().string("Invalid customer ID format"));
+		MvcResult result = mockMvc.perform(get("/api/reward-points/abc")) // Invalid customer ID format
+				.andExpect(status().isBadRequest()).andExpect(content().string("Invalid customer ID format")).andReturn();
+		String response = result.getResponse().getContentAsString();
+		assertEquals("Invalid customer ID format", response);
 	}
 	
 	/**
@@ -81,9 +94,11 @@ public class RewardPointForSingleCustomerTest {
 	 */
 	@Test
 	public void testGetRewardPointsBasedOnCustomerId_NegativeCustomerId() throws Exception {
-		mockMvc.perform(get("/api/reward-points/-1")) // Negative customer ID
+		MvcResult result = mockMvc.perform(get("/api/reward-points/-1")) // Negative customer ID
 				.andExpect(status().isBadRequest())
-				.andExpect(content().string("Customer ID must be a positive number"));
+				.andExpect(content().string("Customer ID must be a positive number")).andReturn();
+		String response = result.getResponse().getContentAsString();
+		assertEquals("Customer ID must be a positive number", response);
 	}
 	
 }

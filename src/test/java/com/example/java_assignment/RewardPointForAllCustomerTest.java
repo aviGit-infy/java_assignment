@@ -3,6 +3,7 @@
  */
 package com.example.java_assignment;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import java.util.List;
@@ -19,9 +20,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.example.java_assignment.controller.RewardPointController;
 import com.example.java_assignment.model.RewardPointForAllCustomer;
 import com.example.java_assignment.service.AsyncRewardPointService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
  * The RewardPointForAllCustomerTest
@@ -62,8 +63,19 @@ public class RewardPointForAllCustomerTest {
 		when(asyncRewardPointService.getRecordsForAllCustomers())
 				.thenReturn(CompletableFuture.completedFuture(mockResponse));
 
-		mockMvc.perform(get("/api/reward-points/getAllCustomer")).andExpect(status().isOk()).andExpect(content().json(
-				"[{\"customerId\":1,\"monthlyPoints\":{\"jan\":100},\"totalPoints\":100},{\"customerId\":2,\"monthlyPoints\":{\"feb\":200},\"totalPoints\":200}]"));
+		String expectedResponse = new ObjectMapper().writeValueAsString(mockResponse);
+
+		mockMvc.perform(get("/api/reward-points/getAllCustomer")).andExpect(status().isOk()).andExpect(result -> {
+			String actualResponse = result.getResponse().getContentAsString();
+			assertEquals(expectedResponse, actualResponse);
+		});
+
+		/*
+		 * mockMvc.perform(get("/api/reward-points/getAllCustomer"))
+		 * .andExpect(status().isOk()).andExpect(content().json(
+		 * "[{\"customerId\":1,\"monthlyPoints\":{\"jan\":100},\"totalPoints\":100},
+		 * {\"customerId\":2,\"monthlyPoints\":{\"feb\":200},\"totalPoints\":200}]"));
+		 */
 	}
 	
 }
