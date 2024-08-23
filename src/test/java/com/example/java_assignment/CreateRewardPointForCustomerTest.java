@@ -57,7 +57,7 @@ public class CreateRewardPointForCustomerTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testCreateTransaction_Success() throws Exception {
+	public void testCreateTransactionSuccess() throws Exception {
 		Transactions transaction = new Transactions();
 		transaction.setCustomerId(1L);
 
@@ -66,7 +66,8 @@ public class CreateRewardPointForCustomerTest {
 		transaction.setAmount(200.0);
 
 		MvcResult result = mockMvc.perform(post("/api/reward-points/createTransactions")
-				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(transaction))).andExpect(status().isOk())
+				.contentType(MediaType.APPLICATION_JSON).content(asJsonString(transaction)))
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String response = result.getResponse().getContentAsString();

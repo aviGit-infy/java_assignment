@@ -55,15 +55,13 @@ public class RewardPointForSingleCustomerTest {
 	 */
 	@Test
 	public void testGetRewardPointsBasedOnCustomerId_Success() throws Exception {
-		// Arrange
 		Long customerId = 1L;
 		RewardPointResponse mockResponse = new RewardPointResponse(Map.of("jan", 100), 100);
 
 		when(asyncRewardPointService.getRewardPointsAsync(customerId))
 				.thenReturn(CompletableFuture.completedFuture(mockResponse));
 
-		// Act & Assert
-		mockMvc.perform(get("/api/reward-points/1")) // Assuming the endpoint is /{customerId}
+		mockMvc.perform(get("/api/reward-points/1"))
 				.andExpect(status().isOk()).andExpect(content().json("{\"monthlyPoints\":{\"jan\":100},\"totalPoints\":100}"));
 	}
 
@@ -73,7 +71,6 @@ public class RewardPointForSingleCustomerTest {
 	 */
 	@Test
 	public void testGetRewardPointsBasedOnCustomerId_InvalidCustomerIdFormat() throws Exception {
-		// Act & Assert
 		mockMvc.perform(get("/api/reward-points/abc")) // Invalid customer ID format
 				.andExpect(status().isBadRequest()).andExpect(content().string("Invalid customer ID format"));
 	}
@@ -84,7 +81,6 @@ public class RewardPointForSingleCustomerTest {
 	 */
 	@Test
 	public void testGetRewardPointsBasedOnCustomerId_NegativeCustomerId() throws Exception {
-		// Act & Assert
 		mockMvc.perform(get("/api/reward-points/-1")) // Negative customer ID
 				.andExpect(status().isBadRequest())
 				.andExpect(content().string("Customer ID must be a positive number"));

@@ -1,4 +1,4 @@
-## Detail Description
+## Customer Reward Point Assignment
 1. In the below repository <br>
 1.1 Main class name to run the application was give as JavaAssignmentApplication 
 
