@@ -167,6 +167,7 @@ Transaction created successfully
     2.2.3 If we pass invalid format date <br>
     url -> http://localhost:8080/api/reward-points/createTransactions <br/>
     <i>Note -> correct format of date is -> 2001-06-12 (year-month-date [yyyy-MM-dd])</i><br>
+	<i> Note -> The response is been modified because of the changes that we have done from Date to LocalDate since the need was required to convert the localdate is because we wanted to implement a testcases which was giving the issue. So the below response we are showing and in java it will give a warning </i><br>
     request ->
     ```
     {
@@ -177,5 +178,10 @@ Transaction created successfully
     ```
     response 
     ```
-    Transaction date must be in the format yyyy-MM-dd
+{
+    "timestamp": "2024-08-28T12:09:51.881+00:00",
+    "status": 400,
+    "error": "Bad Request",
+    "path": "/api/reward-points/createTransactions"
+}
     ```
