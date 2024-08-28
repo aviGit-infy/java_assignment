@@ -178,10 +178,10 @@ Transaction created successfully
     ```
     response 
     ```
-{
-    "timestamp": "2024-08-28T12:09:51.881+00:00",
-    "status": 400,
-    "error": "Bad Request",
-    "path": "/api/reward-points/createTransactions"
-}
+	{
+	    "timestamp": "2024-08-28T12:09:51.881+00:00",
+	    "status": 400,
+	    "error": "Bad Request",
+	    "path": "/api/reward-points/createTransactions"
+	}
     ```
